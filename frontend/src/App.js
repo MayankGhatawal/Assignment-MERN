@@ -5,6 +5,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import AddEmployee from './components/AddEmployee';
 import EmployeeList from './components/EmployeeList';
+import EditEmployee from './components/EditEmployee';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token'); // Check if user is logged in
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/employees" element={isAuthenticated ? <EmployeeList /> : <Navigate to="/employees" />} />
+          <Route path="/editEmployee/:id" element={<EditEmployee employees={"/employees"} />} />
           <Route path="/add-employee" element={isAuthenticated ? <AddEmployee /> : <Navigate to="/login" />} />
         </Routes>
       </div>
