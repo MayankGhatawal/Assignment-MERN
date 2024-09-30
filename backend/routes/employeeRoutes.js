@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const auth = require('../middleware/auth');
 
+
 // Set up storage engine for multer
 const storage = multer.diskStorage({
   destination: './uploads/',
@@ -82,34 +83,23 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update Employee (Update)
-router.put('/update/:id', upload.single('photo'), async (req, res) => {
-  const { name, email, phoneNo, designation, gender, courses } = req.body;
-  let photo = req.body.photo;
-
-  if (req.file) {
-    photo = req.file.filename;
-  }
-
+router.put('/update/:id', async (req, res) => {
   try {
+    const { name, email, phoneNo, designation, gender, course, photo } = req.body;
+
     const updatedEmployee = await Employee.findByIdAndUpdate(
       req.params.id,
-      {
-        name,
-        email,
-        phoneNo,
-        designation,
-        gender,
-        courses: courses ? courses.split(',') : [],
-        photo
-      },
-      { new: true } // Return the updated document
+      { name, email, phoneNo, designation, gender, course, photo },
+      { new: true }
     );
 
-    if (!updatedEmployee) return res.status(404).json({ message: 'Employee not found' });
-    res.status(200).json(updatedEmployee);
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json(updatedEmployee);
   } catch (error) {
-    console.error("Error updating employee:", error);
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

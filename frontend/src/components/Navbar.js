@@ -19,8 +19,8 @@ function Navbar() {
         <div className='text-xl'>
           <Link to="/" className=" mr-16">Home</Link>
           {isAuthenticated && <Link to="/employees" className="mr-4">Employee List</Link>}
-          {!isAuthenticated && <Link to="/signup" className="mr-4">Signup</Link>}
-          {!isAuthenticated && <Link to="/login" className="mr-4">Login</Link>}
+          {!isAuthenticated && <Link to="/signup" className="mr-16">Signup</Link>}
+          {!isAuthenticated && <Link to="/login" className="mr-16">Login</Link>}
         </div>
         {isAuthenticated && (
           <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded">Logout</button>
